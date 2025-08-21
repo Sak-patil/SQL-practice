@@ -1,0 +1,6 @@
+CREATE DATABASE sportscomplex;
+USE sportscomplex;
+CREATE TABLE customer(
+customer_id int PRIMARY KEY,
+customer_name varchar(20),
+email varchar(30));
