@@ -4,3 +4,92 @@ CREATE TABLE customer(
 customer_id int PRIMARY KEY,
 customer_name varchar(20),
 email varchar(30));
+
+ALTER TABLE customer ADD age INT;
+ALTER TABLE customer MODIFY email VARCHAR(50);
+ALTER TABLE customer RENAME COLUMN age TO customer_age;
+ALTER TABLE customer DROP COLUMN customer_age;
+ALTER TABLE customer DROP COLUMN age;
+ALTER TABLE customer ADD CONSTRAINT chk_age CHECK (age >= 18);
+ALTER TABLE customer DROP CONSTRAINT chk_age;
+INSERT INTO customer (customer_id, customer_name, email)
+VALUES (1, 'Sakshi', 'sakshi@gmail.com'),
+       (2, 'Raavi', 'raavi@gmail.com');
+select * from customer;
+TRUNCATE TABLE customer;
+RENAME TABLE customer TO client;
+DROP TABLE client;
+
+ CREATE TABLE user1(
+ user1_id int primary key,
+ user_name varchar(20),
+ email varchar(30));
+ 
+ CREATE TABLE user_contact(
+ user1_id int ,
+ contact_no varchar(10),
+ FOREIGN KEY(user1_id) references user1(user1_id));
+ 
+ CREATE TABLE sports_complex(
+ complex_id int PRIMARY KEY ,
+ complex_name varchar(15),
+ contact_no varchar(10),
+ opening_hour varchar(10));
+ 
+ CREATE TABLE user_choose_complex(
+ user1_id int,
+ complex_id int,
+ FOREIGN KEY(user1_id) references user1(user1_id),
+ FOREIGN KEY(complex_id) references sports_complex(complex_id));
+ 
+ CREATE TABLE user_play_game(
+  user1_id int,
+  game_id int,
+  FOREIGN KEY(user1_id) references user1(user1_id),
+  FOREIGN KEY(game_id) references game(game_id));
+  
+  CREATE TABLE game(
+  game_id int PRIMARY KEY,
+  game_name varchar(10));
+  
+   CREATE TABLE indoorgame(
+  game_id int,
+  roomsize varchar(10),
+  required_equipments varchar(50),
+  FOREIGN KEY(game_id) references game(game_id));
+  
+  CREATE TABLE outdoorgame(
+  game_id int,
+  weather_condition varchar(30),
+  FOREIGN KEY(game_id) references game(game_id));
+  
+  CREATE TABLE court(
+  court_id int PRIMARY KEY,
+  game_id int,
+  complex_id int,
+  court_name varchar(15),
+  status varchar(15) CHECK (STATUS IN('Available','Not-available')),
+  FOREIGN KEY(complex_id) references sports_complex(complex_id),
+  FOREIGN KEY(game_id) references game(game_id));
+  
+  CREATE TABLE booking(
+  booking_id int primary key,
+  user1_id int,
+  court_id int,
+  booking_date DATE,
+  time_slot varchar(15),
+  FOREIGN KEY(user1_id) references user1(user1_id),
+  FOREIGN KEY(court_id) references court(court_id));
+  
+  CREATE TABLE payment(
+  payment_id int primary key,
+  booking_id int,
+  amount decimal(8,2),
+  payment_method varchar(20) CHECK (payment_method in ('UPI','Cash')),
+  FOREIGN KEY(booking_id) references booking(booking_id));
+  
+
+  
+  
+
+ 
